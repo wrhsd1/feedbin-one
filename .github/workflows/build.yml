@@ -65,7 +65,7 @@ jobs:
           labels: ${{ steps.docker-metadata.outputs.labels }}
           containerfiles: |-
             Containerfile
-          ARCH: arm64v8
+          ARCH: arm64
           extra-args: |-
             --cap-add=sys_admin,mknod
             --volume /var/run/docker.sock:/var/run/docker.sock
