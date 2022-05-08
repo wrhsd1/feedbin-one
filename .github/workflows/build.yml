@@ -70,6 +70,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           tags: ${{ steps.docker-metadata.outputs.tags }}
+          platforms: linux/arm64
           labels: ${{ steps.docker-metadata.outputs.labels }}
           containerfiles: |-
             Containerfile
