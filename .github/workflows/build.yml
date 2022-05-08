@@ -1,14 +1,15 @@
 name: build
 
 on:
-  push:
-    branches:
-      - '**'
-    tags:
-      - 'v*.*.*'
-  pull_request:
-    branches:
-      - '**'
+  workflow_dispatch:
+ # push:
+ #   branches:
+ #     - '**'
+  #  tags:
+ #     - 'v*.*.*'
+ # pull_request:
+ #   branches:
+ #     - '**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
