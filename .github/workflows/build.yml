@@ -57,6 +57,7 @@ jobs:
           context: .
           push: false
           tags: localhost/feedbin:edge
+          platforms: linux/arm64
 
       - name: Force Rootful Native OverlayFS
         run: |-
