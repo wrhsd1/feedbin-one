@@ -42,32 +42,21 @@ jobs:
           printf '%s\n' '#!/bin/sh' 'exec /usr/bin/sudo -n -- /usr/bin/podman "$@"' | sudo tee /usr/local/bin/podman
           printf '%s\n' '#!/bin/sh' 'exec /usr/bin/sudo -n -- /usr/bin/skopeo "$@"' | sudo tee /usr/local/bin/skopeo
           sudo chmod a+x /usr/local/bin/buildah /usr/local/bin/podman /usr/local/bin/skopeo
-
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=today::$(date +'%Y-%m-%d')"
-        
+     
       - name: Build
         uses: redhat-actions/buildah-build@v2
         with:
-          image: docker.io/wrhsd/feedbin-one
-          tags: ${{ steps.date.outputs.today }}
-          platforms: linux/arm64
+          tags: ${{ steps.docker-metadata.outputs.tags }}
           labels: ${{ steps.docker-metadata.outputs.labels }}
           containerfiles: |-
             Containerfile
           extra-args: |-
             --cap-add=sys_admin,mknod
-            --volume /var/run/docker.sock:/var/run/docker.sock      
-        
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v1  # 三方的action操作， 执行docker login
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}  # 配置dockerhub的认证，在Github项目主页 【Settings】 -> 【Secrets】 添加对应变量
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+            --volume /var/run/docker.sock:/var/run/docker.sock
       - name: Push
-        uses: docker/build-push-action@v2
+        if: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
+        uses: redhat-actions/push-to-registry@v2
         with:
-          push: true
-          tags: wrhsd/feedbin-one/${{ steps.date.outputs.today }}
+          tags: ${{ steps.docker-metadata.outputs.tags }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.PACKAGE_TOKEN }}
