@@ -8,6 +8,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
  && gem update --system \
  && npm install -g yarn \
  && cd /opt/feedbin/feedbin \
+ && bundle update --conservative silencer \
  && bundle install \
  && cd /opt/feedbin/image \
  && bundle install \
