@@ -36,29 +36,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
         
-      - name: Docker Metadata
-        id: docker-metadata
-        uses: docker/metadata-action@v3
-        with:
-          images: |
-            ghcr.io/${{ github.repository }}
-          tags: |
-            type=edge
-            type=ref,event=branch
-            type=ref,event=pr
-            type=schedule
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
-
-      - name: Build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: false
-          tags: localhost/feedbin:edge
-          platforms: linux/arm64
-
       - name: Force Rootful Native OverlayFS
         run: |-
           printf '%s\n' '#!/bin/sh' 'exec /usr/bin/sudo -n -- /usr/bin/buildah "$@"' | sudo tee /usr/local/bin/buildah
