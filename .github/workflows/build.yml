@@ -73,7 +73,7 @@ jobs:
       - name: Build
         uses: redhat-actions/buildah-build@v2
         with:
-          tags: ${{ steps.date.outputs.today }}
+          tags: feedbin/${{ steps.date.outputs.today }}
           platforms: linux/arm64
           labels: ${{ steps.docker-metadata.outputs.labels }}
           containerfiles: |-
@@ -92,4 +92,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ steps.date.outputs.today }}
+          tags: feedbin/${{ steps.date.outputs.today }}
