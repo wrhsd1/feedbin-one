@@ -58,6 +58,7 @@ jobs:
       - name: Build
         uses: redhat-actions/buildah-build@v2
         with:
+          ARCH: amr64
           tags: ${{ steps.docker-metadata.outputs.tags }}
           labels: ${{ steps.docker-metadata.outputs.labels }}
           containerfiles: |-
