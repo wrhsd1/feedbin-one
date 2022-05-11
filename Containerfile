@@ -1,6 +1,6 @@
 FROM ghcr.io/wrhsd1/systemd-podman:main
 
-RUN && podman pull docker.io/library/caddy:2-alpine \
+RUN podman pull docker.io/library/caddy:2-alpine \
  && podman pull docker.io/library/elasticsearch:8.2.0 \
  && podman pull docker.io/library/memcached:1-alpine \
  && podman pull docker.io/library/postgres:14-alpine \
