@@ -1,6 +1,6 @@
 FROM ghcr.io/wrhsd1/systemd-podman:main
 
-RUN apt install sudo 、
+RUN apt install sudo -y \
  && sudo podman pull docker.io/library/caddy:2-alpine \
  && sudo podman pull docker.io/library/elasticsearch:8.2.0 \
  && sudo podman pull docker.io/library/memcached:1-alpine \
