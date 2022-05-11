@@ -1,6 +1,7 @@
 FROM ghcr.io/wrhsd1/systemd-podman:main
 
-RUN sudo podman pull docker.io/library/caddy:2-alpine \
+RUN apt install sudo 、
+ && sudo podman pull docker.io/library/caddy:2-alpine \
  && sudo podman pull docker.io/library/elasticsearch:8.2.0 \
  && sudo podman pull docker.io/library/memcached:1-alpine \
  && sudo podman pull docker.io/library/postgres:14-alpine \
